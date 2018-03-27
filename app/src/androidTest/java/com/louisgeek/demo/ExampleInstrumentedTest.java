@@ -1,4 +1,4 @@
-package com.louisgeek.testapp;
+package com.louisgeek.demo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

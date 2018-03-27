@@ -1,4 +1,4 @@
-package com.louisgeek.testapp;
+package com.louisgeek.demo;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,14 +16,14 @@ import java.util.List;
 /**
  * Created by classichu on 2018/3/26.
  */
-
-public class MySecondaryBaseAdapter extends BaseAdapter {
-    private static final String TAG = "MySecondaryBaseAdapter";
+public class MyThirdaryBaseAdapter extends BaseAdapter {
+    private static final String TAG = "MyThirdaryBaseAdapter";
     private List<MyBean> mMyBeanList;
 
-    public MySecondaryBaseAdapter(List<MyBean> myBeanList) {
+    public MyThirdaryBaseAdapter(List<MyBean> myBeanList) {
         mMyBeanList = myBeanList;
     }
+
 
     @Override
     public int getCount() {
@@ -60,35 +60,11 @@ public class MySecondaryBaseAdapter extends BaseAdapter {
 
 
         //  RadioGroup +  RadioButton
-        myViewHolder.rg.setOnCheckedChangeListener(null);
-        myViewHolder.rg.clearCheck();
-        if ("1".equals(myBean.selectedRb)) {
-            myViewHolder.rg.check(R.id.id_rb);
-        } else if ("2".equals(myBean.selectedRb)) {
-            myViewHolder.rg.check(R.id.id_rb2);
-        }
-        myViewHolder.rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d(TAG, "onCheckedChanged: checkedId:" + checkedId);
-
-                myBean.selectedRb = null;
-                myBean.title = "new_未选_" + position;
-                if (R.id.id_rb == checkedId) {
-                    myBean.selectedRb = "1";
-                    myBean.title = "new_111111_" + position;
-                } else if (R.id.id_rb2 == checkedId) {
-                    myBean.selectedRb = "2";
-                    myBean.title = "new_222222_" + position;
-                }
-            }
-        });
+        //采用  MyPrimaryBaseAdapter 或者 MySecondaryBaseAdapter  的方法
         //  RadioGroup +  RadioButton
 
 
         //  CheckBox
-        myViewHolder.cb.setOnCheckedChangeListener(null);
-        myViewHolder.cb.setChecked(myBean.isChecked);
         myViewHolder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -96,6 +72,8 @@ public class MySecondaryBaseAdapter extends BaseAdapter {
                 myBean.isChecked = isChecked;
             }
         });
+        //此方法不推荐，setChecked 必须在setOnCheckedChangeListener之后
+        myViewHolder.cb.setChecked(myBean.isChecked);
         //  CheckBox
         return convertView;
     }

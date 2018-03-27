@@ -1,4 +1,4 @@
-package com.louisgeek.testapp;
+package com.louisgeek.demo;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +17,11 @@ import java.util.List;
  * Created by classichu on 2018/3/26.
  */
 
-public class MyPrimaryBaseAdapter extends BaseAdapter {
-    private static final String TAG = "MyPrimaryBaseAdapter";
+public class MySecondaryBaseAdapter extends BaseAdapter {
+    private static final String TAG = "MySecondaryBaseAdapter";
     private List<MyBean> mMyBeanList;
 
-    public MyPrimaryBaseAdapter(List<MyBean> myBeanList) {
+    public MySecondaryBaseAdapter(List<MyBean> myBeanList) {
         mMyBeanList = myBeanList;
     }
 
@@ -58,7 +58,9 @@ public class MyPrimaryBaseAdapter extends BaseAdapter {
         final MyBean myBean = mMyBeanList.get(position);
         myViewHolder.tv.setText(myBean.title);
 
+
         //  RadioGroup +  RadioButton
+        myViewHolder.rg.setOnCheckedChangeListener(null);
         myViewHolder.rg.clearCheck();
         if ("1".equals(myBean.selectedRb)) {
             myViewHolder.rg.check(R.id.id_rb);
@@ -68,11 +70,6 @@ public class MyPrimaryBaseAdapter extends BaseAdapter {
         myViewHolder.rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                View checkedView = group.findViewById(checkedId);
-                if (checkedView == null || !checkedView.isPressed()) {
-                    //防止setOnCheckedChangeListener循环监听
-                    return;
-                }
                 Log.d(TAG, "onCheckedChanged: checkedId:" + checkedId);
 
                 myBean.selectedRb = null;
@@ -88,15 +85,13 @@ public class MyPrimaryBaseAdapter extends BaseAdapter {
         });
         //  RadioGroup +  RadioButton
 
+
         //  CheckBox
+        myViewHolder.cb.setOnCheckedChangeListener(null);
         myViewHolder.cb.setChecked(myBean.isChecked);
         myViewHolder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView == null || !buttonView.isPressed()) {
-                    //防止setOnCheckedChangeListener循环监听
-                    return;
-                }
                 Log.d(TAG, "onCheckedChanged: buttonView:" + buttonView);
                 myBean.isChecked = isChecked;
             }

@@ -1,4 +1,4 @@
-package com.louisgeek.testapp;
+package com.louisgeek.demo;
 
 import org.junit.Test;
 
